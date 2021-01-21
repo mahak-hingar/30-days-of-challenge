@@ -1,0 +1,50 @@
+
+#include <stdio.h>
+#include<stdlib.h>
+struct node 
+{ int data;
+struct node *next;
+}*first= NULL;
+
+ void create(int a[], int n)
+ {
+     struct node *last,*t;
+     first = (struct node *)malloc(sizeof(struct node));
+    first->data=a[0];
+     first->next =NULL;
+     last =first;
+    for(int i=1;i<n;i++)
+  {
+    t= (struct node *)malloc(sizeof(struct node));
+    t->data=a[i];
+    t->next=NULL;
+    last->next=t;
+    last =t;
+  }
+ }
+ int countp(struct node *p)  //counting nodes in a linked list  by recursion method 1 
+ { 
+   if(p==0)
+   { return 0;
+   } 
+   return count(p->next)+1;
+ }
+ int count(struct node *p)  //counting nodes in a linked list  by recursion method 2
+ { int c=0;
+   if(p!=0)
+   { 
+      c = count (p->next);
+      return c+1;
+   } 
+   return c;
+ }
+ 
+ 
+int main()
+{ int a[] = { 1,2,3,4,5};;
+  create(a,5);
+  printf(" by method one -> %d\n ",countp(first));
+   printf("by method two -> %d ",count(first));
+
+    return 0;
+}
