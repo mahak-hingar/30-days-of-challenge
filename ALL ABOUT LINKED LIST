@@ -1,0 +1,526 @@
+
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node *next;
+} *first = NULL, *sec = NULL, *third = NULL, *fourth = NULL, *five =
+  NULL, *six = NULL;
+
+void create (int a[], int n)		//create a linked list
+{
+  struct node *last, *t;
+  first = (struct node *) malloc (sizeof (struct node));
+  first->data = a[0];
+  first->next = NULL;
+  last = first;
+  for (int i = 1; i < n; i++)
+    {
+      t = (struct node *) malloc (sizeof (struct node));
+      t->data = a[i];
+      t->next = NULL;
+      last->next = t;
+      last = t;
+    }
+}
+
+void create2 (int a[], int n)	//create a linked list
+{
+  struct node *last, *t;
+  sec = (struct node *) malloc (sizeof (struct node));
+  sec->data = a[0];
+  sec->next = NULL;
+  last = sec;
+  for (int i = 1; i < n; i++)
+    {
+      t = (struct node *) malloc (sizeof (struct node));
+      t->data = a[i];
+      t->next = NULL;
+      last->next = t;
+      last = t;
+    }
+}
+
+void create3 (int a[], int n)	//create a linked list
+{
+  struct node *last, *t;
+  third = (struct node *) malloc (sizeof (struct node));
+  third->data = a[0];
+  third->next = NULL;
+  last = third;
+  for (int i = 1; i < n; i++)
+    {
+      t = (struct node *) malloc (sizeof (struct node));
+      t->data = a[i];
+      t->next = NULL;
+      last->next = t;
+      last = t;
+    }
+} 
+void create4 (int a[], int n)	//create a linked list
+{
+  struct node *last, *t;
+  fourth = (struct node *) malloc (sizeof (struct node));
+  fourth->data = a[0];
+  fourth->next = NULL;
+  last = fourth;
+  for (int i = 1; i < n; i++)
+    {
+      t = (struct node *) malloc (sizeof (struct node));
+      t->data = a[i];
+      t->next = NULL;
+      last->next = t;
+      last = t;
+    }
+}
+
+void recursivereverse (struct node *q, struct node *p)	// reverse of a linked list by recursion
+{
+  if (p != NULL)
+    {
+      recursivereverse (p, p->next);
+      p->next = q;
+    }
+  else
+    {
+      first = q;
+    }
+}
+
+int countp (struct node *p)		//counting nodes in a linked list  by recursion method 1 
+{
+  if (p == 0)
+    {
+      return 0;
+    }
+  return countp (p->next) + 1;
+}
+
+int count (struct node *p)		//counting nodes in a linked list  by recursion method 2
+{
+  int c = 0;
+  if (p != 0)
+    {
+      c = count (p->next);
+      return c + 1;
+    }
+  return c;
+}
+
+int countbyiterative (struct node *p)	//counting nodes in a linked list  by iterative method 
+{
+  int c = 0;
+  while (p != NULL)
+    {
+      c++;
+      p = p->next;
+    }
+  return c;
+}
+
+void insert (struct node *p, int pos, int x)	//insertion in alinked list
+{
+  struct node *t;
+  if (pos < 0 || pos > count (p))
+    return;
+  t = (struct node *) malloc (sizeof (struct node));
+  t->data = x;
+  if (pos == 0)
+    {
+      t->next = first;
+      first = t;
+    }
+  else
+    {
+      for (int i = 0; i < pos - 1; i++)
+	p = p->next;
+
+      t->next = p->next;
+      p->next = t;
+    }
+}
+
+void display (struct node *p)	//display all the elements
+{
+  while (p != NULL)
+    {
+      printf ("%d ", p->data);
+
+
+      p = p->next;
+    }
+  printf ("\n");
+}
+
+int add (struct node *p)		// sum of all the elements by iterative method 
+{
+  int sum = 0;
+  while (p != NULL)
+    {
+      sum = sum + p->data;
+      p = p->next;
+    }
+  return sum;
+}
+
+int addbyrecursive (struct node *p)	// sum of all the elements by recursive method
+{
+  if (p == 0)
+    return 0;
+  else
+    return addbyrecursive (p->next) + p->data;
+}
+
+int maxbyiterative (struct node *p)	//maximum element in a linked list
+{
+  int m = -32768;
+  while (p != 0)
+    {
+      if (p->data > m)
+	m = p->data;
+      p = p->next;
+    }
+  return m;
+}
+
+int maxbyrecursive (struct node *p)	//maximum element in a linked list
+{
+  int x = 0;
+  if (p == 0)
+    return 0;
+  else
+    {
+      x = maxbyrecursive (p->next);
+      if (x > p->data)
+	return x;
+      else
+	return p->data;
+    }
+  return x;
+}
+
+struct node * searchbyiterative (struct node *p, int key)	//searching of an element by iterative method 
+{
+  while (p != 0)
+    {
+      if (key == p->data)
+	return p;
+      p = p->next;
+    }
+  return NULL;
+}
+
+struct node * searchbyrecursive (struct node *p, int key)	//searching of an element by recursive method 
+{
+  if (p == 0)
+    return NULL;
+  if (key == p->data)
+    return p;
+  return searchbyrecursive (p->next, key);
+}
+
+struct node * bringfirst (struct node *p, int key)	//bring any node to the first 
+{
+  struct node *q = NULL;
+  while (p != NULL)
+    {
+      if (key == p->data)
+	{
+	  return p;
+
+	  p->next = q->next;
+	  p->next = first;
+	  first = p;
+
+	}
+      q = p;
+      p = p->next;
+
+    }
+}
+
+void sortedinsert (struct node *p, int x)	//inserting in asorted linked list
+{
+  struct node *t, *q = NULL;
+
+  t = (struct node *) malloc (sizeof (struct node));
+  t->data = x;
+  t->next = NULL;
+
+  if (first == NULL)
+    {
+      first = t;
+    }
+  else
+    {
+      while (p && p->data < x)
+	{
+	  q = p;
+	  p = p->next;
+	}
+      if (p == first)
+	{
+	  t->next = first;
+	  first = t;
+	}
+      else
+	{
+	  t->next = q->next;
+	  q->next = t;
+	}
+    }
+}
+
+int delete (struct node *p, int pos)	//deletion in linked list 
+{
+  int x;
+
+  struct node *q = NULL;
+  if (pos == 1)
+    {
+      first = first->next;
+      x = p->data;
+      free (p);
+
+    }
+  else
+    {
+      for (int i = 0; i < pos - 1; i++)
+	{
+	  q = p;
+	  p = p->next;
+	}
+      q->next = p->next;
+      x = p->data;
+      free (p);
+    }
+  return x;
+}
+
+int issorted (struct node *p)	//check whether the given linke list is sorted or not 
+{
+  int x = 0;
+  while (p != NULL)
+    {
+      if (p->data < x)
+	return 0;
+      x = p->data;
+      p = p->next;
+      return 1;
+    }
+}
+
+void removedupli (struct node *p)
+{
+  struct node *q = first->next;
+  while (q != NULL)
+    {
+      if (p->data != q->data)
+	{
+	  p = q;
+	  q = q->next;
+	}
+      else
+	{
+	  p->next = q->next;
+	  free (q);
+	  q = p->next;
+	}
+
+    }
+}
+
+void reversebylink (struct node *p)	//REVERSE BY LINKS
+{
+  int *a;
+  a = (int *) malloc (sizeof (int) * count (p));
+  int i = 0;
+
+  while (p != NULL)
+    {
+      a[i] = p->data;
+      p = p->next;
+      i++;
+    }
+  p = first;
+  i--;
+  while (p != NULL)
+    {
+      p->data = a[i--];
+      p = p->next;
+    }
+}
+
+void reversebyslide (struct node *p)	//reverse linked list by sliding pointers
+{
+  struct node *q = NULL;
+  struct node *r = NULL;
+  while (p != NULL)
+    {
+      r = q;
+      q = p;
+      p = p->next;
+      q->next = r;
+
+    }
+  first = q;
+
+}
+
+void concat (struct node *p, struct node *q) //conatenate two  list
+{
+  six = p;
+  while (p->next != NULL)
+    {
+      p = p->next;
+    }
+  p->next = q;
+
+}
+
+void merge (struct node *p, struct node *q) //merge two linked list
+{
+  struct node *last;
+  if (p->data < q->data)
+    {
+      five = last = p;
+      p = p->next;
+      last->next = NULL;
+    }
+  else
+    {
+      five = last = sec;
+      sec = sec->next;
+      last->next = NULL;
+    }
+  while (p != NULL && q != NULL)
+    {
+      if (p->data < q->data)
+	{
+	  last->next = p;
+	  last = p;
+	  p = p->next;
+	  last->next = NULL;
+	}
+      else
+	{
+	  last->next = q;
+	  last = q;
+	  q = q->next;
+	  last->next = NULL;
+	}
+
+    }
+  if (p != NULL)
+    last->next = p;
+  else
+    last->next = q;
+}
+
+int isloop (struct node *p) //function to check that the given linked list forms loop or not
+{
+  struct node *q;
+  p = q = first;
+  do
+    {
+      p = p->next;
+      q = q->next;
+      q = q != NULL ? q->next : NULL;
+    }
+  while (p != NULL && q != NULL && p != q);
+  return p == q ? 1 : 0;
+}
+
+
+int main ()  //driver code
+{
+  int a[] = { 1, 2, 3, 4, 5 };
+  int b[] = { 9, 10, 23, 34, 45, 56 };
+  int c[] = { 1, 2, 3, 4, 5, 6 };
+  int d[] = { 1, 5, 8, 10, 11 };
+  struct node *temp, *t1, *t2;
+  create (a, 5);
+  create2 (b, 6);
+  create3 (c, 6);
+  create4 (d, 5);
+
+  printf ("elements in linked list 1 are \n");
+  display (first);
+  printf ("elements in linked list 2 are \n");
+  display (sec);
+  printf ("elements in linked list 3 are \n");
+  display (third);
+  printf ("elements in linked list 4 are \n");
+  display (fourth);
+  concat (first, sec);
+  printf ("concatenated  linked list \n");
+  display (six);
+  printf ("merged  linked list  \n");
+  merge (third, fourth);
+  display (five);
+
+  removedupli (first);
+  printf ("elements in linked list after removing duplicates are \n");
+  display (first);
+  printf ("reverse elements of a linked list by recursive method \n");
+  recursivereverse (NULL, first);
+  display (first);
+  printf ("count the nodes in a linked list by method one -> %d\n",
+	  countp (first));
+  printf ("count the nodes in a linked list by method two -> %d \n",
+	  count (first));
+  printf ("count the nodes in a linked list by iterative method -> %d \n",
+	  countbyiterative (first));
+  printf ("sum of all the nodes by iterative method  %d \n", add (first));
+  printf ("sum of all the nodes by recursive method  %d \n",
+	  addbyrecursive (first));
+  printf ("maximum element in a linked list by iterative method -> %d \n",
+	  maxbyiterative (first));
+  printf ("maximum element in a linked list by iterative method -> %d \n",
+	  maxbyrecursive (first));
+  printf ("address of %d element is by iterative -> %d \n", 3,
+	  searchbyiterative (first, 3));
+  printf ("address of %d element is by recursive -> %d \n", 4,
+	  searchbyrecursive (first, 4));
+  temp = bringfirst (first, 3);
+  if (temp)
+    printf ("key found at %d \n", temp);
+  else
+    printf ("not found \n");
+  printf ("after insertion ");
+  insert (first, 3, 4);
+  printf ("elements in linked list are ");
+  display (first);
+  printf ("elements in linked list are  ");
+  sortedinsert (first, 5);
+  sortedinsert (first, 9);
+  sortedinsert (first, 10);
+  display (first);
+  printf ("deleted element is %d \n", delete (first, 3));
+  printf ("linked list after deletion is  ");
+  display (first);
+  if (issorted (first) == 1)
+    printf ("sorted linked list \n");
+  else
+    printf ("unsorted linked list\n");
+  reversebyslide (first);
+  printf ("reversed linked list by sliding pointers  ");
+  display (first);
+  removedupli (first);
+  printf ("elements in linked list after removing duplicates are ");
+  display (first);
+  printf ("reversed  by links   ");
+  reversebylink (first);
+  display (first);
+  t1 = first->next->next;
+  t2 = first->next->next->next->next;
+  t2->next = t1;
+  if (isloop (first) == 1)
+    printf ("given linked list form loop \n");
+  else
+    printf ("given linked list is linear \n");
+
+
+  return 0;
+}
